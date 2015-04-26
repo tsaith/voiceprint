@@ -8,7 +8,7 @@ module Voiceprint
       n1 = signal1.length
       n2 = signal2.length
 
-      # n = min(n1, n2);
+      n = [n1, n2].min
       # yt1 = signal1(1:n);
       # yt2 = signal2(1:n);
 

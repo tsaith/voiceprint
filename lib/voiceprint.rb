@@ -1,6 +1,5 @@
 require "narray"
 require 'gsl'
-#require "numru/fftw3"
 require 'nyaplot'
 require 'ruby-audio'
 

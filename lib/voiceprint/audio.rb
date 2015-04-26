@@ -1,15 +1,10 @@
 module Voiceprint
 
-  class Audio
-
-    def initialize(snd)
-      @snd = snd
-    end
+  module Audio
+    include RubyAudio
 
     def self.open(file)
-      snd = RubyAudio::Sound.open(file)
-      audio = Audio.new(snd)
-      audio
+      Sound.open(file)
     end
 
     def self.play(file)
@@ -17,29 +12,27 @@ module Voiceprint
       system("play #{file}");
     end
 
-    def disp_info
-      len_secs = length.round(2)
-      puts "Sample rate: #{samplerate}"
+    def self.disp_file_info(file)
+      snd = Sound.open(file)
+
+      sample_rate = snd.info.samplerate
+      channels = snd.info.channels
+      len_secs = snd.info.length.round(2)
+      puts "Sample rate: #{sample_rate}"
       puts "Channels: #{channels}"
       puts "Length: #{len_secs} secs"
+
+      snd.close
     end
 
-    def samplerate
-      @snd.info.samplerate
+    def self.buf2narray(a)
+      n = a.size
+      na = NArray.float(n)
+      (0..n-1).each do |index|
+        na[index] = a[index]
+      end
+      na
     end
-
-    def channels
-      @snd.info.channels
-    end
-
-    def length
-      @snd.info.length
-    end
-
-    def close
-      @snd.close
-    end
-
 
   end
 
