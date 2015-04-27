@@ -1,6 +1,28 @@
 module Voiceprint
-
   module Analysis
+
+    def self.inspect_signal(signal, fs = 44100)
+      # Match two signals
+
+      n = signal.length
+
+      yt = signal
+      yw = FFT.fft(yt)
+
+      amp = yw.abs
+
+      dt = 1.0 / fs
+
+      time = (0..n-1).map {|e| e * dt}
+      freq = FFT.fftfreq(n, dt)
+
+      mode_max = 1024
+      mode_range = 0..mode_max-1
+
+      Plot.plot(time, yt, xlabel: "Time (sec)", ylabel: "Signal")
+      Plot.plot(freq[mode_range], amp[mode_range], xlabel: "Freq (Hz)", ylabel: "Amp")
+
+    end
 
     def self.match_signals(signal1, signal2, fs = 44100)
       # Match two signals
@@ -9,51 +31,25 @@ module Voiceprint
       n2 = signal2.length
 
       n = [n1, n2].min
-      # yt1 = signal1(1:n);
-      # yt2 = signal2(1:n);
+      yt1 = signal1[0..n-1]
+      yt2 = signal2[0..n-1]
 
-      # [yw1, amp1, phase1] = fftNoShift(yt1);
-      # [yw2, amp2, phase2] = fftNoShift(yt2);
+      yw1 = FFT.fft(yt1)
+      yw2 = FFT.fft(yt2)
 
-      # amp1_filt = smoothFilt(amp1);
-      # amp2_filt = smoothFilt(amp2);
+      amp1 = yw1.abs
+      amp2 = yw2.abs
 
-      # dt = 1/ fs;
-      # freq = fftFreq(n, dt);
-      # time = (1:n)*dt;
+      dt = 1.0 / fs
+      freq = FFT.fftfreq(n, dt)
 
-      # modeMax = 1024;
-      # modes = 1:modeMax;
+      mode_max = 1024
+      mode_range = 0..mode_max-1
 
-      # time_array = 1:n;
-
-      # fig_rows = 3;
-      # fig_cols = 1;
-
-      # subplot(fig_rows, fig_cols, 1);
-      # plot(time, yt1, ';signal 1;', time, yt2, ';signal 2;');
-      # ylabel("Signal");
-      # xlabel("Time (sec)");
-
-      # subplot(fig_rows, fig_cols, 2);
-      # plot(freq(modes), amp1(modes), ';signal 1;', ...
-      #                                              freq(modes), amp2(modes), ';signal 2;');
-      # ylabel("Amp (no filt)");
-      # xlabel("Freq (Hz)");
-
-      # subplot(fig_rows, fig_cols, 3);
-      # plot(freq(modes), amp1_filt(modes), ';signal 1;', ...
-      #                                                   freq(modes), amp2_filt(modes), ';signal 2;');
-      # ylabel("Amp (with filt)");
-      # xlabel("Freq (Hz)");
-
-      # [result, corr_coef] = patternMatch(amp1, amp2);
-      # printf('The result of matching is %g \n', result);
-      # printf('The correltion coefficient is %g \n', corr_coef);
-
+      Plot.plot(freq[mode_range], amp1[mode_range], xlabel: "Freq (Hz)", ylabel: "Amp 1")
+      Plot.plot(freq[mode_range], amp2[mode_range], xlabel: "Freq (Hz)", ylabel: "Amp 2")
 
     end
 
   end
-
 end
