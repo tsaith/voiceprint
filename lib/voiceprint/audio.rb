@@ -10,7 +10,7 @@ module Voiceprint
       def read(file, buf_size = nil)
         snd = Sound.open(file)
         sample_rate = snd.info.samplerate
-        len_sec = snd.info.length
+        len_sec = snd.info.length.floor
         buf_size ||= sample_rate * len_sec
         buf = snd.read("double", buf_size)
         snd.close

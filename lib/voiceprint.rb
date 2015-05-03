@@ -1,11 +1,13 @@
 require 'narray'
 require 'gsl'
 require 'nyaplot'
+require 'ffi-portaudio'
 require 'ruby-audio'
 
 require_relative 'voiceprint/fft'
 require_relative 'voiceprint/stats'
 require_relative 'voiceprint/plot'
 require_relative 'voiceprint/audio'
+require_relative 'voiceprint/stream'
 require_relative 'voiceprint/recog'
 require_relative 'voiceprint/analysis'

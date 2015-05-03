@@ -13,5 +13,5 @@ nb/
 tmp/
 *#
 *.swp
-m/octave-workspace
+m/
 Gemfile.lock
