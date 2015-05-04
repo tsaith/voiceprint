@@ -1,28 +1,10 @@
 module Voiceprint
-  class Stream
-    include FFI::PortAudio
+  class Stream < FFI::PortAudio::Stream
 
-    def open(input, output, freq, frames, flags=API::NoFlag)
-      @input, @output, @freq, @frames, @flags = input, output, freq, frames, flags
-      @callback = nil
-      @data = nil
-      @stream = FFI::Buffer.new :pointer
-      API.Pa_OpenStream(@stream, @input, @output, @freq, @frames, @flags, @callback, @data)
+    def process(input, output, frames, time_info, flags, data)
+      tmp = input.read_array_of_int16(frames)
+      data.write_array_of_int16(tmp)
     end
-
-    def start
-      API.Pa_StartStream @stream.read_pointer
-    end
-
-    def close
-      API.Pa_CloseStream @stream.read_pointer
-    end
-
-    def read(buffer, len)
-      API.Pa_ReadStream(@stream, buffer, len)
-      puts "read"
-    end
-
 
   end
 end
