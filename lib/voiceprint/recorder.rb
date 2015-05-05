@@ -29,15 +29,11 @@ module Voiceprint
       @stream.close
     end
 
-    def close
-      #API.Pa_Terminate
-    end
-
     def get_data
       @data.read_array_of_int16(@frames)
     end
 
-    def self.initialize
+    def self.init
       API.Pa_Initialize
     end
 

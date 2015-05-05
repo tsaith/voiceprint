@@ -46,8 +46,10 @@ module Voiceprint
       mode_max = 1024
       mode_range = 0..mode_max-1
 
-      Plot.plot(freq[mode_range], amp1[mode_range], xlabel: "Freq (Hz)", ylabel: "Amp 1")
-      Plot.plot(freq[mode_range], amp2[mode_range], xlabel: "Freq (Hz)", ylabel: "Amp 2")
+      Plot.plot(freq[mode_range], amp1[mode_range], ";signal 1;", freq[mode_range], amp2[mode_range], ";signal 2;", xlabel: "Freq (Hz)", ylabel: "Amplitude")
+
+      #Plot.plot(freq[mode_range], amp1[mode_range], xlabel: "Freq (Hz)", ylabel: "Amp 1")
+      #Plot.plot(freq[mode_range], amp2[mode_range], xlabel: "Freq (Hz)", ylabel: "Amp 2")
 
     end
 

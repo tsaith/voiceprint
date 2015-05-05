@@ -19,3 +19,5 @@ s_cmp = read_json(file_cmp)
 Plot.plot(s)
 Plot.plot(s_cmp)
 Recog::signal_match(s, s_cmp)
+
+Analysis.inspect_signal(s)

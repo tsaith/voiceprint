@@ -16,7 +16,7 @@ end
 # File name
 file = "../data/test.json"
 
-Recorder.initialize
+Recorder.init
 
 recorder = Voiceprint::Recorder.new
 recorder.start
