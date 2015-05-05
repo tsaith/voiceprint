@@ -2,6 +2,7 @@ module Voiceprint
   module Recog
 
     def self.signal_match(s1, s2, fs = 44100)
+      # Return the match probability of two signals
 
       n1 = s1.length
       n2 = s2.length
@@ -24,11 +25,13 @@ module Voiceprint
       pattern_match(amp1[mode_range], amp2[mode_range])
     end
 
-    def self.pattern_match(x, y, threshold = 0.8)
-      # Inspect two patterns are matched or not
+    private
+
+    def self.pattern_match(x, y)
+      # Return the match probability of two patterns
       corr_coef = Stats.corr(x, y)
-      result = (corr_coef >= threshold) ? true : false
-      return result, corr_coef
+      prob = corr_coef
+      return prob
     end
 
     def self.voice_mode_range(df, freq_min = 50, freq_max = 300)
